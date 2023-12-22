@@ -1,20 +1,20 @@
 fn count_winnings(line: &str) -> u32 {
-    let nums_str:Vec<&str> = line.split(":").skip(1)
-      .next().unwrap()
-      .split("|")
-      .collect();
-    let winn_nums: Vec<u32> = nums_str[0]
-          .trim().split_ascii_whitespace()
-          .map(|n| n.parse::<u32>().unwrap())
-          .collect::<Vec<u32>>();
-    let plyr_nums: Vec<u32> = nums_str[1]
-          .trim().split_ascii_whitespace()
-          .map(|n| n.parse::<u32>().unwrap())
-          .collect::<Vec<u32>>();
-    let count = plyr_nums.into_iter()
-      .filter(|pn| winn_nums.iter().any(|wn| wn == pn))
-      .count() as u32;
-    count
+  let nums_str:Vec<&str> = line.split(":").skip(1)
+    .next().unwrap()
+    .split("|")
+    .collect();
+  let winn_nums: Vec<u32> = nums_str[0]
+    .trim().split_ascii_whitespace()
+    .map(|n| n.parse::<u32>().unwrap())
+    .collect::<Vec<u32>>();
+  let plyr_nums: Vec<u32> = nums_str[1]
+    .trim().split_ascii_whitespace()
+    .map(|n| n.parse::<u32>().unwrap())
+    .collect::<Vec<u32>>();
+  let count = plyr_nums.into_iter()
+  .filter(|pn| winn_nums.iter().any(|wn| wn == pn))
+  .count() as u32;
+  count
 }
 
 fn part_1(input: String) -> u32 {
@@ -31,7 +31,7 @@ fn part_1(input: String) -> u32 {
 fn part_2(input: String) -> u32 {
   let mut card_count: Vec<u32> = vec![1;input.lines().count()];
 
-  for (line, card_num) in input.lines().zip(0..) {
+  for (card_num, line) in input.lines().enumerate() {
     let wins = count_winnings(line) as usize;
     
     for card in 0..wins {
